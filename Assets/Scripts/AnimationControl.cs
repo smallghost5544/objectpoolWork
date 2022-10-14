@@ -8,6 +8,12 @@ public class AnimationControl : MonoBehaviour
     public Animator animator;
     public GameObject gun;
     public GameObject backgun;
+    public GameObject ControlRig;
+
+    public float rigx;
+    public float rigy;
+    public float rigz;
+    public Transform originalRotation;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,20 +33,24 @@ public class AnimationControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            RotateRig();
             animator.SetTrigger("Shoot");
+            Invoke("EndRotate", 0.5f);
         }
     }
 
     private void ReadyShoot()
     {
-        if (Input.GetMouseButtonDown(1)&&gun.activeSelf == true)
+        if (Input.GetMouseButtonDown(1) && gun.activeSelf == true)
         {
             if (animator.GetBool("IsShoot"))
             {
+                EndRotate();
                 animator.SetBool("IsShoot", false);
             }
             else if (!animator.GetBool("IsShoot"))
             {
+                RotateRig();
                 animator.SetBool("IsShoot", true);
             }
         }
@@ -61,7 +71,7 @@ public class AnimationControl : MonoBehaviour
 
     public void DrawandHideGun()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && !animator.GetBool("IsShoot"))
         {
             if (gun.activeSelf == false) //沒槍時取槍並顯示
             {
@@ -69,7 +79,7 @@ public class AnimationControl : MonoBehaviour
                 animator.SetInteger("IdleStyle", 0);
                 //animator.SetLayerWeight(1, 1);
             }
-            else                        //有槍時收槍並隱藏
+            else                     //有槍時收槍並隱藏
             {
                 animator.SetTrigger("hide");
                 animator.SetInteger("IdleStyle", 1);
@@ -77,7 +87,7 @@ public class AnimationControl : MonoBehaviour
             }
 
             Invoke("GunActive", 0.75f);
-           // Invoke("SetLayerWeightZero", 2.25f);
+            // Invoke("SetLayerWeightZero", 2.25f);
         }
     }
 
@@ -98,6 +108,18 @@ public class AnimationControl : MonoBehaviour
     void SetLayerWeightZero()
     {
         animator.SetLayerWeight(1, Mathf.Lerp(0, 0.65f, 1f));
+
+    }
+
+     public void RotateRig()
+    {
+        originalRotation.rotation = ControlRig.transform.rotation;
+        ControlRig.transform.Rotate(rigx,rigy, rigz, Space.Self);
+    }
+    public void EndRotate()
+    {
+        ControlRig.transform.Rotate(-rigx, -rigy, -rigz, Space.Self);
+        //ControlRig.transform.rotation = Quaternion.Lerp(ControlRig.transform.rotation, originalRotation.rotation, Time.time * 0.7f);
 
     }
 }

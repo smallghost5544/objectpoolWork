@@ -17,7 +17,7 @@ public class GunControl : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+
     }
 
     // Update is called once per frame
@@ -63,19 +63,5 @@ public class GunControl : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        RaycastHit tryhit;
-        bool isHit = Physics.SphereCast(ccamera.transform.position, OnReadyAimThick, ccamera.transform.forward, out tryhit , 20f);
-        if (isHit)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(ccamera.transform.position, OnReadyAimThick);
-        }
-        else
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(ccamera.transform.position, OnReadyAimThick);
-        }
-    }
+    
 }

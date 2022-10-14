@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,19 @@ public class CharacterMove : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private float moveSpeed;
+    private float currentSpeed;
     [SerializeField]
-    private Transform FollowCamera;
+    private float walkSpeed;
+    [SerializeField]
+    private float gunSpeed;
+    [SerializeField]
+    //private Transform FollowCamera;
+    public AnimationControl animatorC;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        animatorC = GetComponent<AnimationControl>();
     }
 
     // Update is called once per frame
@@ -21,15 +27,24 @@ public class CharacterMove : MonoBehaviour
     {
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
-        Vector3 newfor = FollowCamera.forward;
-        newfor.y = 0;
-        if (v != 0 || h != 0)
-        {
-            transform.forward = newfor;
-        }
+        
 
-        Vector3 goforward = transform.forward * v * moveSpeed * Time.deltaTime;
-        Vector3 goright = transform.right * h * moveSpeed * Time.deltaTime;
+        Vector3 goforward = transform.forward * v * currentSpeed * Time.deltaTime;
+        Vector3 goright = transform.right * h * currentSpeed * Time.deltaTime;
         transform.position += goforward + goright;
+
+        HandingGunSpeedSwitch();
+    }
+
+    private void HandingGunSpeedSwitch()
+    {
+        if (animatorC.gun.activeSelf == false)
+        {
+            currentSpeed = walkSpeed;
+        }
+        else
+        {
+            currentSpeed = gunSpeed;
+        }
     }
 }
