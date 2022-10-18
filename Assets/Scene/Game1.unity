@@ -3578,9 +3578,8 @@ MonoBehaviour:
   backgun: {fileID: 9022810484679104496}
   ControlRig: {fileID: 1745324457}
   rigx: 0
-  rigy: 25
+  rigy: 40
   rigz: 0
-  originalRotation: {fileID: 1745324458}
 --- !u!114 &8236838404222188558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3614,7 +3613,9 @@ MonoBehaviour:
   ShootFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   GunPoint: {fileID: 762376963}
   animator: {fileID: 0}
-  OnReadyAimThick: 2
+  OnReadyAimThick: 2.5
+  rr: 0.6
+  bullets: 20
 --- !u!114 &8236838404222188561
 MonoBehaviour:
   m_ObjectHideFlags: 0

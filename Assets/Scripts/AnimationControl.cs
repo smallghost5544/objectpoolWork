@@ -13,7 +13,7 @@ public class AnimationControl : MonoBehaviour
     public float rigx;
     public float rigy;
     public float rigz;
-    public Transform originalRotation;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +27,14 @@ public class AnimationControl : MonoBehaviour
         Move();
         ReadyShoot();
         Shoot();
+        //ControlRig.transform.rotation = Quaternion.Slerp(ControlRig.transform.rotation, Quaternion.identity, turnspeed);
     }
 
     private void Shoot()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RotateRig();
             animator.SetTrigger("Shoot");
-            Invoke("EndRotate", 0.5f);
         }
     }
 
@@ -45,12 +44,12 @@ public class AnimationControl : MonoBehaviour
         {
             if (animator.GetBool("IsShoot"))
             {
-                EndRotate();
+                EndRotate(rigy);
                 animator.SetBool("IsShoot", false);
             }
             else if (!animator.GetBool("IsShoot"))
             {
-                RotateRig();
+                RotateRig(rigy);
                 animator.SetBool("IsShoot", true);
             }
         }
@@ -111,15 +110,45 @@ public class AnimationControl : MonoBehaviour
 
     }
 
-     public void RotateRig()
+    public void RotateRig(float controy)
     {
-        originalRotation.rotation = ControlRig.transform.rotation;
-        ControlRig.transform.Rotate(rigx,rigy, rigz, Space.Self);
+        ControlRig.transform.Rotate(rigx, controy, rigz, Space.Self);
+        Debug.Log(ControlRig.transform.rotation);
     }
-    public void EndRotate()
+    public void EndRotate(float controy)
     {
-        ControlRig.transform.Rotate(-rigx, -rigy, -rigz, Space.Self);
-        //ControlRig.transform.rotation = Quaternion.Lerp(ControlRig.transform.rotation, originalRotation.rotation, Time.time * 0.7f);
+        //StartCoroutine(RotationTowards(ControlRig.transform, Quaternion.identity, 1f));
+        StartCoroutine(endrotate(40,0.5f));
+        //ControlRig.transform.Rotate(-rigx, -controy, -rigz, Space.Self);
+        //if (!isrotatefinish)
+        //{
+        //    ControlRig.transform.rotation = Quaternion.Slerp(ControlRig.transform.rotation, Quaternion.Euler(0, 0, 0), turnspeed);
+        //    if (ControlRig.transform.rotation == Quaternion.Euler(0,0,0))
+        //    {
+        //        isrotatefinish = true;
+        //    }
+        //}
+        //Debug.Log(ControlRig.transform.rotation);
+    }
 
+    private IEnumerator endrotate(float controy , float time)
+    {
+
+            ControlRig.transform.Rotate(-rigx, -controy, -rigz, Space.Self);
+            yield return new WaitForSeconds(time);
+
+    }
+
+    private IEnumerator RotationTowards(Transform target, Quaternion rot, float dur)
+    {
+        float t = 0f;
+        Quaternion start = target.rotation;
+        while (t < dur)
+        {
+            target.rotation = Quaternion.Slerp(start, rot, t / dur);
+            yield return null;
+            t += Time.deltaTime;
+        }
+        target.rotation = rot;
     }
 }
