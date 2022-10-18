@@ -16,12 +16,10 @@ public class GunControl : MonoBehaviour
 
     public float rr = 0.5f;
     public float bullets;
-    int score = 0;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -33,7 +31,6 @@ public class GunControl : MonoBehaviour
 
     private void Shoot()
     {
-       
         if (Input.GetMouseButtonDown(0))
         {
             if (animator.GetBool("IsShoot"))
@@ -75,8 +72,6 @@ public class GunControl : MonoBehaviour
         {
             ObjectPoolQueue<RandomWalkObject>.instance.Recycle(r);
             Instantiate(ShootFX, GunPoint);
-            score++;
-            Debug.Log(score);
         }
     }
 
@@ -90,6 +85,4 @@ public class GunControl : MonoBehaviour
         Vector3 dir = TargetPos - ccamera.transform.position;
         return dir.normalized;
     }
-
-    
 }

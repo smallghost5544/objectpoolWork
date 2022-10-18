@@ -26,14 +26,15 @@ public class RandomWalkObject : MonoBehaviour
 
     public void PickPointori()
     {
-        int r = Random.Range(1, 20);
-        targetpoint = new Vector3(r, 0, r);
+        int r = Random.Range(-20, 20);
+        int z = Random.Range(-20, 20);
+        targetpoint = new Vector3(r, 0, z);
     }
 
     public IEnumerator PickPoint()
     {
-        int r = Random.Range(1, 50);
-        int z = Random.Range(1, 50);
+        int r = Random.Range(-50, 50);
+        int z = Random.Range(-50, 50);
         targetpoint = new Vector3(r, transform.position.y, z);
         yield return new WaitForSeconds(0f);
     }

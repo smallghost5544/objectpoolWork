@@ -7,7 +7,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
 
     public int ObjectOnStage;
     public Queue<T> objectQueue;
-    public GameObject thisprefab;
+    public GameObject[] thisprefab = new GameObject[5];
     private static ObjectPoolQueue<T> _instance;
     public static ObjectPoolQueue<T> instance
     {
@@ -29,13 +29,14 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
         }
     }
 
-    public void InitPool(GameObject Prefab)
+    public void InitPool(GameObject Prefab  , int Animal)
     {
-        thisprefab = Prefab;
+        thisprefab[Animal] = Prefab;
+        Debug.Log(thisprefab);
         objectQueue = new Queue<T>();
     }
 
-    public T Spawn(Vector3 position, Quaternion rotation)
+    public T Spawn(Vector3 position, Quaternion rotation , int Animal )
     {
         if (thisprefab == null)
         {
@@ -45,7 +46,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
 
         if (QueueCount <= 0)
         {
-            GameObject g = Object.Instantiate(thisprefab, position, rotation);
+            GameObject g = Object.Instantiate(thisprefab[Animal], position, rotation);
             T t = g.GetComponent<T>();
             if (t == null)
             {
@@ -69,11 +70,11 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
         ObjectOnStage--;
     }
 
-    public void WarmUp(int count)
+    public void WarmUp(int count , int Animal)
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject g = Object.Instantiate(thisprefab, Vector3.zero, Quaternion.identity);
+            GameObject g = Object.Instantiate(thisprefab[Animal], Vector3.zero, Quaternion.identity);
             T t = g.GetComponent<T>();
             ObjectOnStage++;
             instance.Recycle(t);

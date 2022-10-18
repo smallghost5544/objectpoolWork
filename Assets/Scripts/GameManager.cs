@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public ObjectPoolQueue<RandomWalkObject> chickenpool;
-    public GameObject chicken;
+    public ObjectPoolQueue<RandomWalkObject> animalpool;  
+    public GameObject Animal;
+    public int AnimalNum;
     public int WarmupCount = 100;
     public Transform[] InitPoint;
     public float SpawnTimer = 2f;
@@ -24,24 +25,29 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     // Start is called before the first frame update
+    private void Awake()
+    {
+        animalpool = ObjectPoolQueue<RandomWalkObject>.instance;
+    }
     void Start()
     {
-        chickenpool = ObjectPoolQueue<RandomWalkObject>.instance;
-        chickenpool.InitPool(chicken);
-        chickenpool.WarmUp(WarmupCount);
+        animalpool.InitPool(Animal , AnimalNum);
+        animalpool.WarmUp(WarmupCount , AnimalNum);
         InvokeRepeating("SpawnAutomatically", SpawnTimer, SpawnTimer);
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+
         SpawnOrRecycle();
+
     }
 
     public void SpawnAutomatically()
     {
             Transform t = InitPoint[RandomPoint()];
-            chickenpool.Spawn(t.transform.position, t.transform.rotation);
+            animalpool.Spawn(t.transform.position, t.transform.rotation , AnimalNum);
     }
 
     public void SpawnOrRecycle()
@@ -49,22 +55,19 @@ public class GameManager : MonoBehaviour
         Transform t = InitPoint[RandomPoint()];
         if (Input.GetKey(KeyCode.E))
         {
-            chickenpool.Spawn(t.transform.position , t.transform.rotation);
+            animalpool.Spawn(t.transform.position , t.transform.rotation , AnimalNum);
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            if (chickenpool.ObjectOnStage <= 0)
+            if (animalpool.ObjectOnStage <= 0)
             {
-                Debug.Log("There is no chicken");
+                Debug.Log("There is no Animal");
                 return;
             }
-            RandomWalkObject r = GameObject.FindWithTag("Chicken").GetComponent<RandomWalkObject>();
-            chickenpool.Recycle(r);
+            RandomWalkObject r = GameObject.FindWithTag("Animal").GetComponent<RandomWalkObject>();
+            animalpool.Recycle(r);
         }
     }
-
-
-
     public int RandomPoint()
     {
         int r = Random.Range(0 , InitPoint.Length);
