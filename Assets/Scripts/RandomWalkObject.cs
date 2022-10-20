@@ -7,11 +7,13 @@ public class RandomWalkObject : MonoBehaviour
     Vector3 currentvec;
     public Animator animator;
     public float MoveSpeed = 1.5f;
-   
+    public int AnimalNum;
+    GameManager gm;
     public Vector3 targetpoint;
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameManager.instance;
         animator = GetComponent<Animator>();
         PickPointori();
     }
@@ -52,5 +54,11 @@ public class RandomWalkObject : MonoBehaviour
             animator.SetInteger("Walk", 0);
             StartCoroutine(PickPoint());
         }
+    }
+
+    public void RecycleSelf()
+    {
+        //GameManager.instance.RecycletoCertainPool(AnimalNum , this);
+        gm.RecycletoCertainPool(AnimalNum , this);
     }
 }

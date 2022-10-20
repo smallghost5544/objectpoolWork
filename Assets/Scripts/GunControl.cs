@@ -16,6 +16,9 @@ public class GunControl : MonoBehaviour
 
     public float rr = 0.5f;
     public float bullets;
+    public GameObject hittt;
+    public GameManager gm;
+    //public RandomWalkObject rwo;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,8 @@ public class GunControl : MonoBehaviour
     void Update()
     {
         Shoot();
+        //if(hittt.transform.gameObject.TryGetComponent<RandomWalkObject>(out var t))
+        //rwo = t;
         //Debug.DrawRay(ccamera.transform.position, ccamera.transform.forward , Color.black , 2f);
     }
 
@@ -37,9 +42,10 @@ public class GunControl : MonoBehaviour
             {
                 if (Physics.Raycast(ccamera.transform.position, ccamera.transform.forward, out hit, range))
                 {
+                    hittt = hit.transform.gameObject;
                     ObjectRecycleFX(hit);
                 }
-                for (int i = 0; i < bullets-1; i++)
+                for (int i = 0; i < bullets - 1; i++)
                 {
                     if (Physics.Raycast(ccamera.transform.position, RandomShootPoint(), out hit, range))
                     {
@@ -70,8 +76,10 @@ public class GunControl : MonoBehaviour
         //RandomWalkObject r = hit.transform.gameObject.GetComponent<RandomWalkObject>();
         if (hit.transform.gameObject.TryGetComponent<RandomWalkObject>(out var r))
         {
-            ObjectPoolQueue<RandomWalkObject>.instance.Recycle(r);
+            //ObjectPoolQueue<RandomWalkObject>.instance.Recycle(r);
+            
             Instantiate(ShootFX, GunPoint);
+            gm.animalpool[r.AnimalNum].Recycle(r);
         }
     }
 

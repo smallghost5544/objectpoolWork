@@ -74,6 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   MoveSpeed: 1.5
+  AnimalNum: 1
   targetpoint: {x: 0, y: 0, z: 0}
 --- !u!114 &3515429033755851204
 MonoBehaviour:

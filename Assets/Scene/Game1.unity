@@ -669,7 +669,6 @@ GameObject:
   - component: {fileID: 894706250}
   - component: {fileID: 894706249}
   - component: {fileID: 894706251}
-  - component: {fileID: 894706252}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -718,34 +717,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 876c32779841b3a4496178969d7befce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animal: {fileID: 3555679585502553812, guid: 361087ab33aad5a4fb69e3ee4eeb2dc7, type: 3}
-  AnimalNum: 0
-  WarmupCount: 10
+  Animals:
+  - {fileID: 1585349779547952, guid: 176e5393390a80a4d80b07910841805a, type: 3}
+  - {fileID: 3555679585502553812, guid: 361087ab33aad5a4fb69e3ee4eeb2dc7, type: 3}
+  - {fileID: 1755646104177140, guid: 99215bf9e5e26604585b5781612fea5a, type: 3}
+  WarmupCount: 30
   InitPoint:
   - {fileID: 87051016}
   - {fileID: 1071234419}
   - {fileID: 813330613}
   - {fileID: 1650366726}
-  SpawnTimer: 2
---- !u!114 &894706252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894706248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876c32779841b3a4496178969d7befce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animal: {fileID: 1755646104177140, guid: 99215bf9e5e26604585b5781612fea5a, type: 3}
-  AnimalNum: 1
-  WarmupCount: 10
-  InitPoint:
-  - {fileID: 1886808656}
-  - {fileID: 1252432702}
-  SpawnTimer: 2
+  SpawnTimer: 1
 --- !u!1 &1071234418
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,7 +3618,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   OnReadyAimThick: 2.5
   rr: 0.5
-  bullets: 20
+  bullets: 5
+  hittt: {fileID: 0}
 --- !u!114 &8236838404222188561
 MonoBehaviour:
   m_ObjectHideFlags: 0
