@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPoolQueue<T> where T : MonoBehaviour
 {
 
-    public int ObjectOnStage;
+    
     public Queue<T> objectQueue;
     public GameObject thisprefab;
     //private static ObjectPoolQueue<T> _instance;
@@ -59,7 +59,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
         obj.gameObject.transform.position = position;
         obj.gameObject.transform.rotation = rotation;
         obj.gameObject.SetActive(true);
-        ObjectOnStage++;
+        
         return obj;
     }
 
@@ -67,7 +67,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
     {
         obj.gameObject.SetActive(false);
         objectQueue.Enqueue(obj);
-        ObjectOnStage--;
+        
     }
 
     public void WarmUp(int count )
@@ -76,7 +76,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
         {
             GameObject g = Object.Instantiate(thisprefab, Vector3.zero, Quaternion.identity);
             T t = g.GetComponent<T>();
-            ObjectOnStage++;
+            
             Recycle(t);
         }
     }

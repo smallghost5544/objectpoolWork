@@ -3620,6 +3620,7 @@ MonoBehaviour:
   rr: 0.5
   bullets: 5
   hittt: {fileID: 0}
+  gm: {fileID: 894706251}
 --- !u!114 &8236838404222188561
 MonoBehaviour:
   m_ObjectHideFlags: 0

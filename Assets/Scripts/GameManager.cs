@@ -7,20 +7,17 @@ public class GameManager : MonoBehaviour
     public ObjectPoolQueue<RandomWalkObject>[] animalpool = new ObjectPoolQueue<RandomWalkObject>[5];
     int poolCount = 5;
     public GameObject[] Animals;
-    int AnimalNum = 0;
     public int WarmupCount = 100;
     public Transform[] InitPoint;
     public float SpawnTimer = 2f;
+
+    public int AnimalOnStage = 0;
     #region Singleton
     private static GameManager m_instance;
     public static GameManager instance
     {
         get
         {
-            if (m_instance == null)
-            {
-                m_instance = new GameManager();
-            }
             return m_instance;
         }
     }
@@ -28,6 +25,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        if (m_instance == null)
+        {
+            m_instance = this;
+        }
         for (int i = 0; i < poolCount; i++)
         {
             animalpool[i] = new ObjectPoolQueue<RandomWalkObject>();
@@ -70,24 +71,29 @@ public class GameManager : MonoBehaviour
     {
             Transform t = InitPoint[RandomPoint()];
             animalpool[i].Spawn(t.transform.position, t.transform.rotation);
+            AnimalOnStage++;
     }
 
     public void SpawnOrRecycle()
     {
         Transform t = InitPoint[RandomPoint()];
+        
         if (Input.GetKey(KeyCode.E))
         {
-            animalpool[AnimalNum].Spawn(t.transform.position , t.transform.rotation );
+            int rx = Random.Range(0, 3);
+            animalpool[rx].Spawn(t.transform.position , t.transform.rotation );
+            AnimalOnStage++;
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            //if (animalpool[AnimalNum].ObjectOnStage <= 0)
-            //{
-            //    Debug.Log("There is no Animal");
-            //    return;
-            //}
+            if (AnimalOnStage <= 0)
+            {
+                Debug.Log("There is no Animal");
+                return;
+            }
             RandomWalkObject r = GameObject.FindWithTag("Animal").GetComponent<RandomWalkObject>();
-            animalpool[0].Recycle(r);
+            r.RecycleSelf();
+            AnimalOnStage--;
         }
     }
     public int RandomPoint()
