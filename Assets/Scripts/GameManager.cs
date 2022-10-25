@@ -69,8 +69,9 @@ public class GameManager : MonoBehaviour
 
     public void SpawnAutomatically(int i )
     {
-            Transform t = InitPoint[RandomPoint()];
-            animalpool[i].Spawn(t.transform.position, t.transform.rotation);
+        //Transform t = InitPoint[RandomPoint()];
+        //animalpool[i].Spawn(t.transform.position, t.transform.rotation);
+        animalpool[i].Spawn(InitPoint[i].transform.position, InitPoint[i].transform.rotation);
             AnimalOnStage++;
     }
 
@@ -81,7 +82,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
             int rx = Random.Range(0, 3);
-            animalpool[rx].Spawn(t.transform.position , t.transform.rotation );
+            //animalpool[rx].Spawn(t.transform.position , t.transform.rotation );
+            animalpool[rx].Spawn(InitPoint[rx].transform.position, InitPoint[rx].transform.rotation);
             AnimalOnStage++;
         }
         if (Input.GetKey(KeyCode.Q))
