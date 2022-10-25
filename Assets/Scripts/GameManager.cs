@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         if (m_instance == null)
         {
             m_instance = this;
-        }
+        } 
         for (int i = 0; i < poolCount; i++)
         {
             animalpool[i] = new ObjectPoolQueue<RandomWalkObject>();

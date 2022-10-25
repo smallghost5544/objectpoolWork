@@ -18,6 +18,7 @@ public class GunControl : MonoBehaviour
     public float bullets;
     public GameObject hittt;
     public GameManager gm;
+    public TrailRenderer bullettrail;
     //public RandomWalkObject rwo;
     // Start is called before the first frame update
     void Start()
@@ -44,12 +45,16 @@ public class GunControl : MonoBehaviour
                 {
                     hittt = hit.transform.gameObject;
                     ObjectRecycleFX(hit);
+                    TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                    StartCoroutine(SpawnTrail(tr , hit));
                 }
                 for (int i = 0; i < bullets - 1; i++)
                 {
                     if (Physics.Raycast(ccamera.transform.position, RandomShootPoint(), out hit, range))
                     {
                         ObjectRecycleFX(hit);
+                        TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                        StartCoroutine(SpawnTrail(tr, hit));
                     }
                 }
                 //hits = Physics.RaycastAll(ccamera.transform.position, ccamera.transform.forward, 100f);
@@ -77,12 +82,25 @@ public class GunControl : MonoBehaviour
         if (hit.transform.gameObject.TryGetComponent<RandomWalkObject>(out var r))
         {
             //ObjectPoolQueue<RandomWalkObject>.instance.Recycle(r);
-            
+            r.RecycleSelf();
             Instantiate(ShootFX, GunPoint);
-            gm.animalpool[r.AnimalNum].Recycle(r);
+            //gm.animalpool[r.AnimalNum].Recycle(r);
         }
     }
 
+    IEnumerator SpawnTrail(TrailRenderer trail , RaycastHit hit)
+    {
+        float time = 0;
+        Vector3 StartPosition = trail.transform.position;
+        while (time < 0.7f)
+        {
+            trail.transform.position = Vector3.Lerp(StartPosition ,hit.point,time*3);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        trail.transform.position = hit.point;
+        
+    }
 
     Vector3 RandomShootPoint()
     {
