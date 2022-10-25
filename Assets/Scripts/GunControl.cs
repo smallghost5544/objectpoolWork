@@ -19,11 +19,13 @@ public class GunControl : MonoBehaviour
     public GameObject hittt;
     public GameManager gm;
     public TrailRenderer bullettrail;
+    public Queue<TrailRenderer> trqueue;
     //public RandomWalkObject rwo;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        trqueue = new Queue<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -37,7 +39,8 @@ public class GunControl : MonoBehaviour
 
     private void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             if (animator.GetBool("IsShoot"))
             {
@@ -45,7 +48,8 @@ public class GunControl : MonoBehaviour
                 {
                     hittt = hit.transform.gameObject;
                     ObjectRecycleFX(hit);
-                    TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                    //TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                    TrailRenderer tr = ObjPoolSpawn(GunPoint.transform.position, Quaternion.identity);
                     StartCoroutine(SpawnTrail(tr , hit));
                 }
                 for (int i = 0; i < bullets - 1; i++)
@@ -53,7 +57,8 @@ public class GunControl : MonoBehaviour
                     if (Physics.Raycast(ccamera.transform.position, RandomShootPoint(), out hit, range))
                     {
                         ObjectRecycleFX(hit);
-                        TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                        //TrailRenderer tr = Instantiate(bullettrail, GunPoint.transform.position, Quaternion.identity);
+                        TrailRenderer tr = ObjPoolSpawn(GunPoint.transform.position, Quaternion.identity);
                         StartCoroutine(SpawnTrail(tr, hit));
                     }
                 }
@@ -94,13 +99,41 @@ public class GunControl : MonoBehaviour
         Vector3 StartPosition = trail.transform.position;
         while (time < 0.7f)
         {
-            trail.transform.position = Vector3.Lerp(StartPosition ,hit.point,time*3);
+            trail.transform.position = Vector3.Lerp(StartPosition ,hit.point,time*4);
             time += Time.deltaTime;
             yield return null;
         }
         trail.transform.position = hit.point;
-        
+        Recycle(trail);
     }
+
+    public TrailRenderer ObjPoolSpawn(Vector3 position, Quaternion rotation)
+    {
+        if (trqueue.Count <= 0)
+        {
+            TrailRenderer g = Instantiate(bullettrail, position, rotation);
+            TrailRenderer t = g.GetComponent<TrailRenderer>();
+            if (t == null)
+            {
+                Debug.LogError("Prefab not find");
+                return default(TrailRenderer);
+            }
+            trqueue.Enqueue(t);
+        }
+        TrailRenderer obj = trqueue.Dequeue();
+        obj.gameObject.transform.position = position;
+        obj.gameObject.transform.rotation = rotation;
+        obj.gameObject.SetActive(true);
+
+        return obj;
+    }
+
+    public void Recycle(TrailRenderer t)
+    {
+        t.gameObject.SetActive(false);
+        trqueue.Enqueue(t);
+    }
+
 
     Vector3 RandomShootPoint()
     {
