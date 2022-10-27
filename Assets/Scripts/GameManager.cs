@@ -57,8 +57,10 @@ public class GameManager : MonoBehaviour
     {   
 
         SpawnOrRecycle();
-        Restart();
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Restart();
+        }
     }
     IEnumerator makeplentyofanimals()
     {   while (true)
@@ -119,7 +121,6 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {   
-        if(Input.GetKeyDown(KeyCode.T))
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
