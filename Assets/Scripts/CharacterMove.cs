@@ -15,24 +15,31 @@ public class CharacterMove : MonoBehaviour
     [SerializeField]
     //private Transform FollowCamera;
     public AnimationControl animatorC;
+    Vector3 movedirection;
+    Rigidbody rigid;
 
     // Start is called before the first frame update
     void Start()
     {
         animatorC = GetComponent<AnimationControl>();
+        rigid = GetComponent<Rigidbody>();
+
+    }
+    private void FixedUpdate()
+    {
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+        Vector3 goforward = transform.forward * v;
+        Vector3 goright = transform.right * h;
+        movedirection = goforward + goright;
+        rigid.AddForce(movedirection.normalized * currentSpeed, ForceMode.Force);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
-        
-
-        Vector3 goforward = transform.forward * v * currentSpeed * Time.deltaTime;
-        Vector3 goright = transform.right * h * currentSpeed * Time.deltaTime;
-        transform.position += goforward + goright;
-
+        //rigid.AddForce(-Vector3.up * 100f);
+        //rigid.velocity = movedirection * currentSpeed * Time.deltaTime * 10f;
         HandingGunSpeedSwitch();
     }
 

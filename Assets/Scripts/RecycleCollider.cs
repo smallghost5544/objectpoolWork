@@ -24,7 +24,7 @@ public class RecycleCollider : MonoBehaviour
         }
         if (other.gameObject.tag == "Player")
         {
-            //restart
+            GameManager.instance.Restart();
         }
     }
 }

@@ -37,14 +37,14 @@ public class RandomWalkObject : MonoBehaviour
     {
         int rx = Random.Range(-50, 50);
         int rz = Random.Range(-50, 50);
-        targetpoint = new Vector3(transform.position.x+rx, transform.position.y, transform.position.z+rz);
+        targetpoint = new Vector3(transform.position.x+rx, 0, transform.position.z+rz);
         yield return new WaitForSeconds(0f);
     }
 
     public void Move()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetpoint, MoveSpeed*Time.deltaTime);
-        if (currentvec.magnitude > 5f)
+        if (currentvec.magnitude > 10f)
         {
             animator.SetInteger("Walk", 1);
             transform.forward = currentvec;

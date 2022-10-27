@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
     {   
 
         SpawnOrRecycle();
-        
+        Restart();
 
     }
     IEnumerator makeplentyofanimals()
@@ -114,5 +115,11 @@ public class GameManager : MonoBehaviour
     {
         animalpool[i].Recycle(r);
         Instantiate(RecycleFX, r.gameObject.transform.position, r.gameObject.transform.rotation);
+    }
+
+    public void Restart()
+    {   
+        if(Input.GetKeyDown(KeyCode.T))
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
