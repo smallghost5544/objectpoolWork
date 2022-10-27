@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public float SpawnTimer = 2f;
 
     public int AnimalOnStage = 0;
+    public int LimitCount = 300;
+
+    public GameObject RecycleFX;
     #region Singleton
     private static GameManager m_instance;
     public static GameManager instance
@@ -71,8 +74,11 @@ public class GameManager : MonoBehaviour
     {
         //Transform t = InitPoint[RandomPoint()];
         //animalpool[i].Spawn(t.transform.position, t.transform.rotation);
-        animalpool[i].Spawn(InitPoint[i].transform.position, InitPoint[i].transform.rotation);
+        if (AnimalOnStage < LimitCount)
+        {
+            animalpool[i].Spawn(InitPoint[i].transform.position, InitPoint[i].transform.rotation);
             AnimalOnStage++;
+        }
     }
 
     public void SpawnOrRecycle()
@@ -104,9 +110,9 @@ public class GameManager : MonoBehaviour
         return r;
     }
 
-    public void RecycletoCertainPool(int i , RandomWalkObject r)
+    public void RecycletoCertainPool(int i , RandomWalkObject r )
     {
-
         animalpool[i].Recycle(r);
+        Instantiate(RecycleFX, r.gameObject.transform.position, r.gameObject.transform.rotation);
     }
 }
