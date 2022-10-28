@@ -84,6 +84,18 @@ public class AnimationControl : MonoBehaviour
             }
 
             Invoke("GunActive", 0.75f);
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.C))    //舉槍時直接收槍
+        {
+            if (animator.GetBool("IsShoot"))
+            {
+                EndRotate(rigy);
+                animator.SetBool("IsShoot", false);
+                animator.SetTrigger("hide");
+                animator.SetInteger("IdleStyle", 1);
+                Invoke("GunActive",1f);
+            }
         }
     }
 

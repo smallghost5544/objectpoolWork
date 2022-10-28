@@ -59,7 +59,10 @@ public class RandomWalkObject : MonoBehaviour
     public void RecycleSelf()
     {
         gm.RecycletoCertainPool(AnimalNum , this);
-        gm.Score++;
-        gm.scoretext.text = "Score:" + gm.Score.ToString();
+        if (!gm.panelcontrol.EndPanel.activeSelf)
+        {
+            gm.Score++;
+            gm.scoretext.text = "Score:" + gm.Score.ToString();
+        }
     }
 }

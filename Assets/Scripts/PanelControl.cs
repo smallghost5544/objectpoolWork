@@ -60,7 +60,7 @@ public class PanelControl : MonoBehaviour
 
     public void CrazyMode()
     {
-        PlayerPrefs.SetFloat("SpawnTime", 0.2f);
+        PlayerPrefs.SetFloat("SpawnTime", 0.05f);
         Cbutton.gameObject.SetActive(false);
         Nbutton.gameObject.SetActive(true);
     }

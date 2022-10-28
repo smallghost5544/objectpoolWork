@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public int TopScore = 0;
     public Text scoretext;
     public GameObject RecycleFX;
-
+    public PanelControl panelcontrol;
     #region Singleton
     private static GameManager m_instance;
     public static GameManager instance

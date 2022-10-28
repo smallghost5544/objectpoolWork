@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1405836845}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,10 +42,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.23
-  m_Height: 2.38
+  m_Radius: 0.18
+  m_Height: 1.9
   m_Direction: 1
-  m_Center: {x: 0, y: 1.13, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &223667590198302208
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +408,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 4ae538c4cf73a61459c167434e0087da, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
@@ -453,11 +453,8 @@ MonoBehaviour:
   ShootFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   GunPoint: {fileID: 6156166222738892170}
   animator: {fileID: 0}
-  OnReadyAimThick: 2.5
   rr: 0.16
   bullets: 5
-  hittt: {fileID: 0}
-  gm: {fileID: 0}
   bullettrail: {fileID: 2428172884430201850, guid: 9acb9a7fddfdbc24f80310c6c0615f15, type: 3}
 --- !u!114 &2819315435086391943
 MonoBehaviour:
@@ -472,8 +469,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 0
-  walkSpeed: 200
-  gunSpeed: 100
+  walkSpeed: 17.5
+  gunSpeed: 13
   animatorC: {fileID: 0}
 --- !u!114 &2819315435086391940
 MonoBehaviour:
@@ -503,7 +500,7 @@ Rigidbody:
   m_GameObject: {fileID: 1259707910088251542}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
