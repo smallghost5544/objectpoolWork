@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class ButtonControl : MonoBehaviour
+public class FirstIntro : MonoBehaviour
 {
-    
+    public GameObject guidepanel;
     // Start is called before the first frame update
     void Start()
     {
-        
+        guidepanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -17,15 +16,13 @@ public class ButtonControl : MonoBehaviour
     {
         
     }
-
-    public void StartGame()
+    public void OpenGuide()
     {
-        SceneManager.LoadScene("RealGame");
+        guidepanel.SetActive(true);
     }
 
-    public void ExitGame()
+    public void Close()
     {
-        Debug.Log("Exit Game");
-        Application.Quit();
+        guidepanel.SetActive(false);
     }
 }

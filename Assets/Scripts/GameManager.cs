@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int TopScore = 0;
     public Text scoretext;
     public GameObject RecycleFX;
+
     #region Singleton
     private static GameManager m_instance;
     public static GameManager instance
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        SpawnTimer = PlayerPrefs.GetFloat("SpawnTime");
+        
         for (int i = 0; i < 3; i++)
         {
             animalpool[i].InitPool(Animals[i]);
@@ -124,4 +127,5 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
     }
+
 }
