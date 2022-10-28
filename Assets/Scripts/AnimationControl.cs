@@ -27,12 +27,11 @@ public class AnimationControl : MonoBehaviour
         Move();
         ReadyShoot();
         Shoot();
-        //ControlRig.transform.rotation = Quaternion.Slerp(ControlRig.transform.rotation, Quaternion.identity, turnspeed);
     }
 
     private void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("Shoot");
         }
@@ -82,11 +81,9 @@ public class AnimationControl : MonoBehaviour
             {
                 animator.SetTrigger("hide");
                 animator.SetInteger("IdleStyle", 1);
-                //animator.SetLayerWeight(1, 1);
             }
 
             Invoke("GunActive", 0.75f);
-            // Invoke("SetLayerWeightZero", 2.25f);
         }
     }
 
@@ -113,30 +110,16 @@ public class AnimationControl : MonoBehaviour
     public void RotateRig(float controy)
     {
         ControlRig.transform.Rotate(rigx, controy, rigz, Space.Self);
-        Debug.Log(ControlRig.transform.rotation);
     }
     public void EndRotate(float controy)
     {
-        //StartCoroutine(RotationTowards(ControlRig.transform, Quaternion.identity, 1f));
         StartCoroutine(endrotate(40,0.5f));
-        //ControlRig.transform.Rotate(-rigx, -controy, -rigz, Space.Self);
-        //if (!isrotatefinish)
-        //{
-        //    ControlRig.transform.rotation = Quaternion.Slerp(ControlRig.transform.rotation, Quaternion.Euler(0, 0, 0), turnspeed);
-        //    if (ControlRig.transform.rotation == Quaternion.Euler(0,0,0))
-        //    {
-        //        isrotatefinish = true;
-        //    }
-        //}
-        //Debug.Log(ControlRig.transform.rotation);
     }
 
     private IEnumerator endrotate(float controy , float time)
     {
-
             ControlRig.transform.Rotate(-rigx, -controy, -rigz, Space.Self);
             yield return new WaitForSeconds(time);
-
     }
 
     private IEnumerator RotationTowards(Transform target, Quaternion rot, float dur)

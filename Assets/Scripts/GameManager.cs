@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class GameManager : MonoBehaviour
 
     public int AnimalOnStage = 0;
     public int LimitCount = 300;
-
+    public int Score = 0;
+    public int TopScore = 0;
+    public Text scoretext;
     public GameObject RecycleFX;
     #region Singleton
     private static GameManager m_instance;
@@ -50,12 +53,12 @@ public class GameManager : MonoBehaviour
         }
             
             StartCoroutine(makeplentyofanimals());
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {   
-
         SpawnOrRecycle();
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -75,8 +78,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnAutomatically(int i )
     {
-        //Transform t = InitPoint[RandomPoint()];
-        //animalpool[i].Spawn(t.transform.position, t.transform.rotation);
         if (AnimalOnStage < LimitCount)
         {
             animalpool[i].Spawn(InitPoint[i].transform.position, InitPoint[i].transform.rotation);
@@ -91,7 +92,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
             int rx = Random.Range(0, 3);
-            //animalpool[rx].Spawn(t.transform.position , t.transform.rotation );
             animalpool[rx].Spawn(InitPoint[rx].transform.position, InitPoint[rx].transform.rotation);
             AnimalOnStage++;
         }
@@ -122,5 +122,6 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {   
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 }

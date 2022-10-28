@@ -58,7 +58,8 @@ public class RandomWalkObject : MonoBehaviour
 
     public void RecycleSelf()
     {
-        //GameManager.instance.RecycletoCertainPool(AnimalNum , this);
         gm.RecycletoCertainPool(AnimalNum , this);
+        gm.Score++;
+        gm.scoretext.text = "Score:" + gm.Score.ToString();
     }
 }

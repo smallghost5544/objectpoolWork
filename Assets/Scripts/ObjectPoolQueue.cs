@@ -3,24 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPoolQueue<T> where T : MonoBehaviour
-{
-
-    
+{ 
     public Queue<T> objectQueue;
     public GameObject thisprefab;
-    //private static ObjectPoolQueue<T> _instance;
-    //public static ObjectPoolQueue<T> instance
-    //{
-    //    get
-    //    {
-    //        if (_instance == null)
-    //        {
-    //            _instance = new ObjectPoolQueue<T>();
-    //        }
-    //        return _instance;
-    //    }
-    //}
-    // Start is called before the first frame update
     public int QueueCount
     {
         get
@@ -28,7 +13,6 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
             return objectQueue.Count;
         }
     }
-
     public void InitPool(GameObject Prefab  )
     {
         thisprefab = Prefab;
@@ -66,8 +50,7 @@ public class ObjectPoolQueue<T> where T : MonoBehaviour
     public void Recycle(T obj)
     {
         obj.gameObject.SetActive(false);
-        objectQueue.Enqueue(obj);
-        
+        objectQueue.Enqueue(obj);    
     }
 
     public void WarmUp(int count )
