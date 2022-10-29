@@ -30,8 +30,11 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timecount -=  Time.deltaTime;
-        timetext.text = "Time:" + timecount.ToString("0.00") + "s";
+        if (!GameManager.instance.panelcontrol.EndPanel.activeSelf)
+        {
+            timecount -= Time.deltaTime;
+            timetext.text = "Time:" + timecount.ToString("0.00") + "s";
+        }
         //if (timecount < 0)
         //{
         //    GameManager.instance.Restart();

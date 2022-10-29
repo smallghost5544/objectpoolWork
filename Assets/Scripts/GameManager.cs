@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
     public void RecycletoCertainPool(int i , RandomWalkObject r )
     {
         animalpool[i].Recycle(r);
+        AnimalOnStage--;
         Instantiate(RecycleFX, r.gameObject.transform.position, r.gameObject.transform.rotation);
     }
 

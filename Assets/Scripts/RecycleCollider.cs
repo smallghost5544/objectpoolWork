@@ -10,7 +10,6 @@ public class RecycleCollider : MonoBehaviour
         {
             var r = other.GetComponent<RandomWalkObject>();
             GameManager.instance.RecycletoCertainPool(r.AnimalNum ,r );
-            GameManager.instance.AnimalOnStage--;
         }
         if (other.gameObject.tag == "Player")
         {
