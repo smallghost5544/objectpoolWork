@@ -64,6 +64,8 @@ public class GunControl : MonoBehaviour
         }
     }
 
+    #region TrailPool
+
     IEnumerator SpawnTrail(TrailRenderer trail , RaycastHit hit)
     {
         float time = 0;
@@ -104,6 +106,7 @@ public class GunControl : MonoBehaviour
         t.gameObject.SetActive(false);
         trqueue.Enqueue(t);
     }
+    #endregion
 
 
     Vector3 RandomShootPoint()

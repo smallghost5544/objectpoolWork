@@ -18,8 +18,16 @@ public class PanelControl : MonoBehaviour
         EndPanel.SetActive(false);
         gm = GameManager.instance;
         gm.TopScore = PlayerPrefs.GetInt("TopScore");
-        Cbutton.gameObject.SetActive(true);
-        Nbutton.gameObject.SetActive(false);
+        if (PlayerPrefs.GetFloat("SpawnTime") > 1)
+        {
+            Cbutton.gameObject.SetActive(true);
+            Nbutton.gameObject.SetActive(false);
+        }
+        else
+        {
+            Cbutton.gameObject.SetActive(false);
+            Nbutton.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
