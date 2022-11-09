@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PanelControl : MonoBehaviour
 {
@@ -78,6 +79,11 @@ public class PanelControl : MonoBehaviour
         PlayerPrefs.SetFloat("SpawnTime", 1.5f);
         Cbutton.gameObject.SetActive(true);
         Nbutton.gameObject.SetActive(false);
+    }
+
+    public void BackMenu()
+    {
+        SceneManager.LoadScene("MainScene");
     }
    
 }
